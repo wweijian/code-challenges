@@ -13,12 +13,10 @@
 
 using namespace std;
 
-// new number always have to form the "third" otherwise the third would have already been found
-
-class Solution {
+/* class Solution {
 public:
 
-    static bool increasingTriplet(vector<int>& nums) {
+    bool increasingTriplet(vector<int>& nums) {
 		bool	second = false;
 		int		second_num;
 		int		smallest = nums.front();
@@ -26,26 +24,32 @@ public:
 			if (second && *it > second_num)
 				return true;
 			else if (*it < smallest)  // we'll keep second because if it still exists, then it's still good
-				smallest == *it;
-			else if (*it > smallest) {
+				smallest = *it;
+			else if (!second && *it > smallest) {
 				second = true;
 				second_num = *it;
 			}
+			else if (*it > smallest)
+				second_num = second_num < *it ? second_num : *it;
 		}
 		return false;
     }
-};
-// @lc code=end
+}; */
 
-int main (int ac, char** av)
-{
-	if (ac < 2) {
-		cerr << "usage: at least 1 argument" << endl;
-		return 1;
+class Solution {
+	public:
+
+	bool	increasingTriplet(vector<int> &nums) {
+		int	min1 = INT_MAX;
+		int min2 = INT_MAX;
+		
+		for (auto num : nums) {
+			if (num <= min1) min1 = num;
+			else if (num <= min2) min2 = num;
+			else return true;
+		}
+		return false;
 	}
-	vector<int> v;
-	for (int i = 0; i < ac; i++) {
-		v.push_back(atoi(av[i]));
-	}
-	cout << (Solution::increasingTriplet(v) ? "true" : "false") << endl;
-}
+} ;
+
+// @lc code=end
